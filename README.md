@@ -1,4 +1,4 @@
-# chili-iso2usb - utilitario para gravar iso
+# chili-iso2usb - utilitario para gravar iso em pendrive/device
 
 ## Download:
 
