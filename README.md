@@ -6,14 +6,14 @@
 	- git clone https://github.com/vcatafesta/chili-iso2usb
 
 - 2 - via curl ou wget via stdin
-	- sh <(curl -L https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master/install.sh)
+	- sh <(curl -s -L https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master/install.sh)
+	- sh <(wget -q -O - https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master/install.sh)
+	- curl -s -O https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master/install.sh | sh
 	- wget -q -O - https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master/install.sh | sh
 
 - 3 - via curl e wget download local
 	- curl -O https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master/install.sh
 	- wget https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master/install.sh
-	- chmod +x install.sh
-	- ./install.sh
 
 ## Instalação (após download):
 - 1 - usando make
