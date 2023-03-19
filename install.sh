@@ -41,7 +41,7 @@ oops() {
 umask 0022
 url="https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master"
 files=('ChangeLog.txt' 'INSTALL' 'LICENSE' 'MAINTAINERS' 'Makefile' 'README.md'
-		 'chili-iso2usb' 'chili-iso2usb.destop')
+		 'chili-iso2usb' 'chili-iso2usb.desktop')
 tmpDir=~/chili-iso2usb
 [[ ! -d "$tmpDir" ]] && { mkdir "$tmpDir" || oops "Não é possível criar diretório temporário para baixar arquivos";}
 
