@@ -29,7 +29,8 @@ jobs:
     steps:
       - name: Obter a hora atual
         id: time
-        run: echo "::set-output name=time::$(date +'%Y.%m.%d-%H%M')"
+        run: |
+          echo "time=$(date +'%Y.%m.%d-%H%M')" >> $GITHUB_ENV
 
   # Job para definir o nome do repositório
   set-repo-name:
@@ -39,11 +40,12 @@ jobs:
     steps:
       - name: Obter nome do repositório
         id: get-repo-name
-        run: echo "::set-output name=repo_name::$(basename $GITHUB_REPOSITORY)"
+        run: |
+          echo "repo_name=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_ENV
 
   # Job para preparar a release
   prepare-release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04 # Define a máquina virtual a ser usada
     needs: [get-time, set-repo-name] # Depende do job get-time para obter a hora atual e do job set-repo-name para obter o nome do repositório
     env:
       REPO_NAME: ${{ needs.set-repo-name.outputs.REPOSITORY_NAME }}
@@ -69,10 +71,16 @@ jobs:
           tag_name: ${{ needs.get-time.outputs.time }}
           release_name: Release ${{ needs.get-time.outputs.time }}
           body: |
-            ### Descrição da Release
+            ## Descrição da Release
+            
+            - **Data e Hora:** ${{ needs.get-time.outputs.time }}
+            - **Nome do Repositório:** ${{ env.REPO_NAME }}
+            
+            Descrição detalhada da release aqui. Inclua quaisquer mudanças, melhorias, ou correções de bugs que foram feitas.
 
-            - **Data e Hora         :** ${{ needs.get-time.outputs.time }}
-            - **Nome do Repositório :** ${{ env.REPO_NAME }}
+            ### Notas
+
+            - Detalhes adicionais ou instruções sobre a release podem ser incluídos aqui.
 
           draft: false
           prerelease: false
