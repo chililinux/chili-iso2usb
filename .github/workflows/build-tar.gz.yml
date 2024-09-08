@@ -29,8 +29,7 @@ jobs:
     steps:
       - name: Obter a hora atual
         id: time
-        run: |
-          echo "time=$(date +'%Y.%m.%d-%H%M')" >> $GITHUB_ENV
+        run: echo "time=$(date +'%Y.%m.%d-%H%M')" >> $GITHUB_ENV
 
   # Job para definir o nome do repositório
   set-repo-name:
@@ -40,8 +39,7 @@ jobs:
     steps:
       - name: Obter nome do repositório
         id: get-repo-name
-        run: |
-          echo "repo_name=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_ENV
+        run: echo "repo_name=$(basename $GITHUB_REPOSITORY)" >> $GITHUB_ENV
 
   # Job para preparar a release
   prepare-release:
@@ -49,6 +47,7 @@ jobs:
     needs: [get-time, set-repo-name] # Depende do job get-time para obter a hora atual e do job set-repo-name para obter o nome do repositório
     env:
       REPO_NAME: ${{ needs.set-repo-name.outputs.REPOSITORY_NAME }}
+      TIME: ${{ needs.get-time.outputs.time }} # Adicionando TIME aqui para usar na etapa abaixo
     steps:
       - name: Checkout do código
         uses: actions/checkout@v2
@@ -68,12 +67,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ORGANIZATION_TOKEN }}
         with:
-          tag_name: ${{ needs.get-time.outputs.time }}
-          release_name: Release ${{ needs.get-time.outputs.time }}
+          tag_name: ${{ env.TIME }} # Usando a variável de ambiente TIME aqui
+          release_name: Release ${{ env.TIME }} # Usando a variável de ambiente TIME aqui
           body: |
             ## Descrição da Release
             
-            - **Data e Hora:** ${{ needs.get-time.outputs.time }}
+            - **Data e Hora:** ${{ env.TIME }}
             - **Nome do Repositório:** ${{ env.REPO_NAME }}
             
             Descrição detalhada da release aqui. Inclua quaisquer mudanças, melhorias, ou correções de bugs que foram feitas.
