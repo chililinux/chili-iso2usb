@@ -69,16 +69,10 @@ jobs:
           tag_name: ${{ needs.get-time.outputs.time }}
           release_name: Release ${{ needs.get-time.outputs.time }}
           body: |
-            ## Descrição da Release
+            ### Descrição da Release
 
-            - **Data e Hora:** ${{ needs.get-time.outputs.time }}
+            - **Data e Hora        :** ${{ needs.get-time.outputs.time }}
             - **Nome do Repositório:** ${{ env.REPO_NAME }}
-
-            Descrição detalhada da release aqui. Inclua quaisquer mudanças, melhorias, ou correções de bugs que foram feitas.
-
-            ### Notas
-
-            - Detalhes adicionais ou instruções sobre a release podem ser incluídos aqui.
 
           draft: false
           prerelease: false
