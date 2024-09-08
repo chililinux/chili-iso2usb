@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 #sh <(curl -L https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master/install.sh)
 #bash <(curl -L https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master/install.sh)
@@ -33,45 +33,43 @@
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 {
-oops() {
-    echo "$0:" "$@" >&2
-    exit 1
-}
+	oops() {
+		echo "$0:" "$@" >&2
+		exit 1
+	}
 
-umask 0022
-url="https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master"
-files=('ChangeLog.txt' 'INSTALL' 'LICENSE' 'MAINTAINERS' 'Makefile' 'README.md'
-		 'chili-iso2usb' 'chili-iso2usb.desktop')
-tmpDir=~/chili-iso2usb
-[[ ! -d "$tmpDir" ]] && { mkdir "$tmpDir" || oops "Não é possível criar diretório temporário para baixar arquivos";}
+	umask 0022
+	url="https://raw.githubusercontent.com/vcatafesta/chili-iso2usb/master"
+	files=('LICENSE' 'Makefile' 'README.md' 'iso2usb' 'iso2usb.desktop')
+	tmpDir=~/iso2usb
+	[[ ! -d "$tmpDir" ]] && { mkdir "$tmpDir" || oops "Não é possível criar diretório temporário para baixar arquivos"; }
 
-require_util() {
-	command -v "$1" > /dev/null 2>&1 ||
-		oops "você não tem '$1' instalado, que é preciso para $2"
-}
+	require_util() {
+		command -v "$1" >/dev/null 2>&1 ||
+			oops "você não tem '$1' instalado, que é preciso para $2"
+	}
 
-#require_util tar "descompatar o tarball"
+	#require_util tar "descompatar o tarball"
 
-if command -v curl > /dev/null 2>&1; then
-	cmdfetch() { curl --silent --insecure --fail -L "$1" -o "$2"; }
-elif command -v wget > /dev/null 2>&1; then
-	cmdfetch() { wget "$1" -O "$2"; }
-else
-	oops "você não tem wget ou curl instalado, que é necessário para baixar os arquivos"
-fi
+	if command -v curl >/dev/null 2>&1; then
+		cmdfetch() { curl --silent --insecure --fail -L "$1" -o "$2"; }
+	elif command -v wget >/dev/null 2>&1; then
+		cmdfetch() { wget "$1" -O "$2"; }
+	else
+		oops "você não tem wget ou curl instalado, que é necessário para baixar os arquivos"
+	fi
 
-for f in "${files[@]}"
-do
-	echo "downloading $f from '$url' to '$tmpDir'..."
-	cmdfetch "$url/$f" "$tmpDir/$f" || oops "falha no download '$url/$f'"
-done
+	for f in "${files[@]}"; do
+		echo "downloading $f from '$url' to '$tmpDir'..."
+		cmdfetch "$url/$f" "$tmpDir/$f" || oops "falha no download '$url/$f'"
+	done
 
-chmod +x $tmpDir/chili-iso2usb
-ls -la $tmpDir
+	chmod +x $tmpDir/iso2usb
+	ls -la $tmpDir
 
-echo
-echo "Entre em: $tmpDir e digite:"
-echo "sudo ./chili-iso2usb"
-exit 0
+	echo
+	echo "Entre em: $tmpDir e digite:"
+	echo "sudo ./iso2usb"
+	exit 0
 
 } # fim do wrapping
