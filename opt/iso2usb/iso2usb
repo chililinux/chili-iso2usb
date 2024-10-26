@@ -1,8 +1,8 @@
-#!/usr/bin/bin/env bash
+#!/usr/bin/env bash
 #
 #  Chili iso2usb - Utility to write iso file to pendrive/device
 #  Created: 2019/06/14
-#  Altered: 2022/05/26
+#  Altered: 2024/10/26
 #
 #  Copyright (c) 2024-2024, Vilmar Catafesta <vcatafesta@gmail.com>
 #  All rights reserved.
