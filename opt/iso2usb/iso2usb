@@ -27,7 +27,7 @@
 #  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ##############################################################################
-_VERSION_="1.4.20220526"
+_VERSION_="1.5.20241026"
 readonly DEPENDENCIES=('yad' 'dialog' 'dd' 'sed' 'grep' 'cat' 'awk' 'fdisk' 'blkid')
 
 check_deps() {
@@ -143,6 +143,7 @@ sh_chooseiso() {
 sh_disk_info() {
 	unset ARRAY_DSK_{DISKS,DEVICES,SIZE,TRAN,MODEL,LABEL}
 	local {NAME,PATH,SIZE,TRAN,MODEL,LABEL}_
+
 	while read -r line; do
 		eval "${line//=/_=}"
 		ARRAY_DSK_DISKS+=("$NAME_")
