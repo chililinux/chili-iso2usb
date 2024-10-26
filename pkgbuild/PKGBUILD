@@ -13,7 +13,7 @@ pkgver=$(date +%y.%m.%d)
 pkgrel=$(date +%H%M)
 arch=('any')
 license=('MIT')
-url="https://github.com/vcatafesta/chili-iso2usb"
+url="https://github.com/vcatafesta/$pkgname"
 source=("git+${url}.git")
 md5sums=('SKIP')
 
