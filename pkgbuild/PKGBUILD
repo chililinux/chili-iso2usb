@@ -60,6 +60,34 @@ package() {
 		fi
 	done
 
+	# Identifica o usuário que invocou o sudo
+	local user_home
+
+	if [ -n "$SUDO_USER" ]; then
+		user_home=$(eval echo ~"$SUDO_USER")
+	else
+		user_home="$HOME"
+	fi
+
+	# # Cria o diretório no home do usuário que invocou o sudo
+	# mkdir -p "${user_home}/$pkgname"
+	# echo "Diretório $pkgname criado em ${user_home}"
+
+	install -d -m1777 "${pkgdir}/opt/$pkgname"
+	install -Dm755 "${srcdir}/$pkgname" "${pkgdir}/opt/$pkgname/$pkgname"
+
+	# Criar o script wrapper em /usr/bin
+	install -d "${pkgdir}/usr/bin"
+	cat <<EOF >"${pkgdir}/usr/bin/$pkgname"
+#!/usr/bin/env bash
+# script wrapper para /opt/iso2usb/iso2usb
+# Copyright (c) Vilmar Catafesta, 2024 <vcatafesta@gmail.com>
+
+cd /opt/$pkgname
+exec ./$(basename "$pkgname") "\$@"
+EOF
+	chmod 755 "${pkgdir}/usr/bin/$pkgname"
+
 	# Install license file if present
 	if [ -f "LICENSE" ]; then
 		install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
