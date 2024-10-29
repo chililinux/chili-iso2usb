@@ -60,12 +60,8 @@ package() {
 		fi
 	done
 
-	# # Cria o diretório no home do usuário que invocou o sudo
-	# mkdir -p "${user_home}/$pkgname"
-	# echo "Diretório $pkgname criado em ${user_home}"
-
 	install -d -m1777 "${pkgdir}/opt/$pkgname"
-	install -Dm755 "${srcdir}/$pkgname" "${pkgdir}/opt/$pkgname/$pkgname"
+	install -Dm755 "${srcdir}/opt/$pkgname/$pkgname" "${pkgdir}/opt/$pkgname/$pkgname"
 
 	# Criar o script wrapper em /usr/bin
 	install -d "${pkgdir}/usr/bin"
