@@ -60,15 +60,6 @@ package() {
 		fi
 	done
 
-	# Identifica o usuário que invocou o sudo
-	local user_home
-
-	if [ -n "$SUDO_USER" ]; then
-		user_home=$(eval echo ~"$SUDO_USER")
-	else
-		user_home="$HOME"
-	fi
-
 	# # Cria o diretório no home do usuário que invocou o sudo
 	# mkdir -p "${user_home}/$pkgname"
 	# echo "Diretório $pkgname criado em ${user_home}"
