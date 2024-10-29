@@ -1,6 +1,6 @@
 # Maintainer: Vilmar Catafesta <vcatafesta@gmail.com>
 
-pkgname=chili-iso2usb
+pkgname=iso2usb
 pkgdesc="utilitario para gravar iso em pendrive/device"
 # Uncomment and edit the following lines as needed
 depends=('yad' 'dialog')

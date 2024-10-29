@@ -26,4 +26,4 @@ utilitario para gravar iso em pendrive/device
 
 ## Executando (após download):
 - 1 - rodando no repo local
-	- ./chili-iso2usb
+	- ./iso2usb

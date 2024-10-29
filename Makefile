@@ -1,4 +1,4 @@
-#  Chili iso2usb - Utility to write iso file to pendrive/device
+#  iso2usb - Utility to write iso file to pendrive/device
 #	 Created: 2019/06/14
 #	 Altered: 2022/05/26
 #
@@ -42,7 +42,7 @@ install:
 	install -m ${MODE} usr/share/applications/iso2usb.desktop ${DESTDIR}/usr/share/applications/
 	mkdir -p ${INFODIR}
 	cp LICENSE README.md ${INFODIR}/
-	@echo "App chili-iso2usb was installed in ${BINDIR}"
+	@echo "App iso2usb was installed in ${BINDIR}"
 
 uninstall:
 	rm ${BINDIR}/iso2usb
@@ -50,6 +50,6 @@ uninstall:
 	rm ${BINDIR}/iso2usb.desktop
 	rm ${DESTDIR}/usr/share/applications/iso2usb.desktop
 	rm -r ${INFODIR}
-	@echo "App chili-iso2usb was removed."
+	@echo "App iso2usb was removed."
 
 

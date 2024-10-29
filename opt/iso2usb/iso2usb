@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-#  Chili iso2usb - Utility to write iso file to pendrive/device
+#  iso2usb - Utility to write iso file to pendrive/device
 #  Created: 2019/06/14
 #  Altered: 2024/10/26
 #
@@ -74,7 +74,7 @@ sh_initvars() {
 	: "${ARRAY_DSK_TRAN=()}"
 	: "${ARRAY_DSK_LABEL=()}"
 	: sep='\xe2\x94\x82'
-	app="Chili iso2usb $_VERSION_"
+	app="iso2usb $_VERSION_"
 	comargs=(
 		--title="$app"
 		--center
@@ -83,7 +83,7 @@ sh_initvars() {
 		--text-align=center
 		--buttons-layout=center
 		--borders=10
-		--image=/opt/chili-iso2usb/src/pendrive.png
+		--image=/opt/iso2usb/src/pendrive.png
 	)
 
 	COMARGS=$(printf "%q " "${comargs[@]}")
