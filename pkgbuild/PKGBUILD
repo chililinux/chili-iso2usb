@@ -2,14 +2,8 @@
 
 pkgname=iso2usb
 pkgdesc="utilitario para gravar iso em pendrive/device"
-# Uncomment and edit the following lines as needed
 depends=('yad' 'dialog')
-#makedepends=('')
-#optdepends=('')
-#conflicts=('')
-#provides=('')
-#replaces=('')
-pkgver=$(date +%y.%m.%d)
+pkgver=$(date +%Y%m%d)
 pkgrel=$(date +%H%M)
 arch=('any')
 license=('MIT')
