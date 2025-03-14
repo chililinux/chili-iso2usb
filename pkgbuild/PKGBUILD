@@ -2,6 +2,7 @@
 
 pkgname=chili-iso2usb
 pkgdesc="utilitario para gravar iso em pendrive/device"
+replaces=('iso2usb')
 depends=('yad' 'dialog')
 pkgver=$(date +%Y%m%d)
 pkgrel=$(date +%H%M)
