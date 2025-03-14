@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Name=chili-iso2usb
+Name=Chili iso2usb
 GenericName=Chili Iso2usb Util
-Comment=Utility to write iso file to pendrive/device
+Comment=Utilitário para gravar arquivo iso em pendrive/dispositivo
 Exec=sudo /opt/chili-iso2usb/chili-iso2usb %F
 Terminal=false
 MimeType=text/plain;
