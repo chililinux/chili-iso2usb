@@ -29,7 +29,7 @@ export DOTPREFIX="  ${black}::${reset} "
 export bold="\033[1m"
 export reset="\033[0m"
 declare IS_UPGRADE=false
-declare pkgname=chili-datetime
+declare pkgname=chili-iso2usb
 declare servicesToEnable=()
 declare servicesToDisable=()
 
