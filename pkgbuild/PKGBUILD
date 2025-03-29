@@ -19,41 +19,20 @@ elif [ -e "pkgbuild.install" ]; then
 	install=pkgbuild.install
 fi
 
-prepare() {
-	cd "${srcdir}/${pkgname}"
-	# Add any preparation steps here, if needed
-	# For example: patch -p1 < "${srcdir}/patch-file.patch"
-}
-
-build() {
-	cd "${srcdir}/${pkgname}"
-	# Add build steps here, if needed
-	# For example: make
-}
-
-check() {
-	cd "${srcdir}/${pkgname}"
-	# Add check/test steps here, if needed
-	# For example: make check
-}
-
 package() {
 	cd "${srcdir}/${pkgname}"
 
-	# Determine the correct source directory
-	if [ -d "${pkgname}" ]; then
-		srcdir="${srcdir}/${pkgname}/${pkgname}"
-	else
-		srcdir="${srcdir}/${pkgname}"
-	fi
+  # Instale todos os arquivos em /usr/share/${pkgname} no momento da criação do pacote:
+  install -dm755 "${pkgdir}/usr/share/${pkgname}"
+  printf "%s\n" "${optdepends[@]}" >"${pkgdir}/usr/share/${pkgname}/optdepends"
 
-	# Install files
-	local dirs=("usr" "etc" "opt")
-	for dir in "${dirs[@]}"; do
-		if [ -d "${srcdir}/${dir}" ]; then
-			cp -a "${srcdir}/${dir}" "${pkgdir}/"
-		fi
-	done
+  # Copiar a estrutura de /etc, /usr e /opt para /usr/share/${pkgname}
+  local dirs=("usr" "etc" "opt")
+  for dir in "${dirs[@]}"; do
+    if [ -d "${srcdir}/${pkgname}/${dir}" ]; then
+      cp -a "${srcdir}/${pkgname}/${dir}" "${pkgdir}/usr/share/${pkgname}/"
+    fi
+  done
 
 	install -d -m1777 "${pkgdir}/opt/$pkgname"
 	install -Dm755 "${srcdir}/opt/$pkgname/$pkgname" "${pkgdir}/opt/$pkgname/$pkgname"
