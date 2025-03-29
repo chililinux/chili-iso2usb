@@ -3,7 +3,6 @@
 pkgname=chili-iso2usb
 pkgdesc="utilitario para gravar iso em pendrive/device"
 replaces=('iso2usb')
-depends=('yad' 'dialog')
 pkgver=$(date +%Y%m%d)
 pkgrel=$(date +%H%M)
 arch=('any')
@@ -11,6 +10,11 @@ license=('MIT')
 url="https://github.com/chililinux/$pkgname"
 source=("git+${url}.git")
 md5sums=('SKIP')
+depends=()
+optdepends=(
+  yad
+  dialog
+)
 
 # Automatically detect and use the correct install file
 if [ -e "${pkgname}.install" ]; then
