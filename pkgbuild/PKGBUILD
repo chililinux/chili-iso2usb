@@ -1,8 +1,8 @@
 # Maintainer: Vilmar Catafesta <vcatafesta@gmail.com>
 
-pkgname=iso2usb
+pkgname=chili-iso2usb
 pkgdesc="utilitario para gravar iso em pendrive/device"
-depends=('yad' 'dialog')
+replaces=('iso2usb')
 pkgver=$(date +%Y%m%d)
 pkgrel=$(date +%H%M)
 arch=('any')
@@ -10,6 +10,11 @@ license=('MIT')
 url="https://github.com/chililinux/$pkgname"
 source=("git+${url}.git")
 md5sums=('SKIP')
+depends=()
+optdepends=(
+  yad
+  dialog
+)
 
 # Automatically detect and use the correct install file
 if [ -e "${pkgname}.install" ]; then
@@ -18,56 +23,20 @@ elif [ -e "pkgbuild.install" ]; then
 	install=pkgbuild.install
 fi
 
-prepare() {
-	cd "${srcdir}/${pkgname}"
-	# Add any preparation steps here, if needed
-	# For example: patch -p1 < "${srcdir}/patch-file.patch"
-}
-
-build() {
-	cd "${srcdir}/${pkgname}"
-	# Add build steps here, if needed
-	# For example: make
-}
-
-check() {
-	cd "${srcdir}/${pkgname}"
-	# Add check/test steps here, if needed
-	# For example: make check
-}
-
 package() {
 	cd "${srcdir}/${pkgname}"
 
-	# Determine the correct source directory
-	if [ -d "${pkgname}" ]; then
-		srcdir="${srcdir}/${pkgname}/${pkgname}"
-	else
-		srcdir="${srcdir}/${pkgname}"
-	fi
+  # Instale todos os arquivos em /usr/share/${pkgname} no momento da criação do pacote:
+  install -dm755 "${pkgdir}/usr/share/${pkgname}"
+  printf "%s\n" "${optdepends[@]}" >"${pkgdir}/usr/share/${pkgname}/optdepends"
 
-	# Install files
-	local dirs=("usr" "etc" "opt")
-	for dir in "${dirs[@]}"; do
-		if [ -d "${srcdir}/${dir}" ]; then
-			cp -a "${srcdir}/${dir}" "${pkgdir}/"
-		fi
-	done
-
-	install -d -m1777 "${pkgdir}/opt/$pkgname"
-	install -Dm755 "${srcdir}/opt/$pkgname/$pkgname" "${pkgdir}/opt/$pkgname/$pkgname"
-
-	# Criar o script wrapper em /usr/bin
-	install -d "${pkgdir}/usr/bin"
-	cat <<EOF >"${pkgdir}/usr/bin/$pkgname"
-#!/usr/bin/env bash
-# script wrapper para /opt/iso2usb/iso2usb
-# Copyright (c) Vilmar Catafesta, 2024 <vcatafesta@gmail.com>
-
-cd /opt/$pkgname
-exec ./$(basename "$pkgname") "\$@"
-EOF
-	chmod 755 "${pkgdir}/usr/bin/$pkgname"
+  # Copiar a estrutura de /etc, /usr e /opt para /usr/share/${pkgname}
+  local dirs=("usr" "etc" "opt")
+  for dir in "${dirs[@]}"; do
+    if [ -d "${srcdir}/${pkgname}/${dir}" ]; then
+      cp -a "${srcdir}/${pkgname}/${dir}" "${pkgdir}/usr/share/${pkgname}/"
+    fi
+  done
 
 	# Install license file if present
 	if [ -f "LICENSE" ]; then

@@ -27,8 +27,8 @@
 ##############################################################################
 SHELL=/bin/bash
 DESTDIR=
-BINDIR=${DESTDIR}/opt/iso2usb
-INFODIR=${DESTDIR}/usr/share/doc/iso2usb
+BINDIR=${DESTDIR}/opt/chili-iso2usb
+INFODIR=${DESTDIR}/usr/share/doc/chili-iso2usb
 MODE=775
 DIRMODE=755
 
@@ -36,20 +36,20 @@ DIRMODE=755
 
 install:
 	mkdir -p ${BINDIR}
-	install -m ${MODE} opt/iso2usb/iso2usb ${BINDIR}/
-	install -m ${MODE} opt/iso2usb/pendrive.png ${BINDIR}/
-	install -m ${MODE} usr/share/applications/iso2usb.desktop ${BINDIR}/
-	install -m ${MODE} usr/share/applications/iso2usb.desktop ${DESTDIR}/usr/share/applications/
+	install -m ${MODE} opt/chili-iso2usb/chili-iso2usb ${BINDIR}/
+	install -m ${MODE} opt/chili-iso2usb/pendrive.png ${BINDIR}/
+	install -m ${MODE} usr/share/applications/chili-iso2usb.desktop ${BINDIR}/
+	install -m ${MODE} usr/share/applications/chili-iso2usb.desktop ${DESTDIR}/usr/share/applications/
 	mkdir -p ${INFODIR}
 	cp LICENSE README.md ${INFODIR}/
-	@echo "App iso2usb was installed in ${BINDIR}"
+	@echo "App chili-iso2usb was installed in ${BINDIR}"
 
 uninstall:
-	rm ${BINDIR}/iso2usb
+	rm ${BINDIR}/chili-iso2usb
 	rm ${BINDIR}/pendrive.png
-	rm ${BINDIR}/iso2usb.desktop
-	rm ${DESTDIR}/usr/share/applications/iso2usb.desktop
+	rm ${BINDIR}/chili-iso2usb.desktop
+	rm ${DESTDIR}/usr/share/applications/chili-iso2usb.desktop
 	rm -r ${INFODIR}
-	@echo "App iso2usb was removed."
+	@echo "App chili-iso2usb was removed."
 
 

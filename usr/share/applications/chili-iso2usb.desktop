@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Chili iso2usb
+GenericName=Chili Iso2usb Util
+Comment=Utilitário para gravar arquivo iso em pendrive/dispositivo
+Exec=chili-iso2usb
+Terminal=false
+MimeType=text/plain;
+Icon=pendrive.png
+Categories=Settings;DesktopSettigns;Utility;Accessories;Chili Apps;
+StartupNotify=true
