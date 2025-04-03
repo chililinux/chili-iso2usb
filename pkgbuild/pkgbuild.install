@@ -134,9 +134,9 @@ sh_copy_user_etc_usr_opt_files() {
 
 post_install() {
 	msg "Initializing system installation and configuration..."
-
   sh_copy_user_etc_usr_opt_files
-	sh_load_optdepends
+  return
+#	sh_load_optdepends
 
 	[[ -e /etc/environment ]] && source /etc/environment
 	: "${IN_CHROOT_INSTALLER:=false}"
