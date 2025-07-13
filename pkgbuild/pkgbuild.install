@@ -163,8 +163,8 @@ post_install() {
 	msg "Please wait, synchronizing databases..."
 	synchronizing_database
 
-	msg "Checking for the existence of packages..."
-	sh_check_package_exist
+	#msg "Checking for the existence of packages..."
+	#sh_check_package_exist
 
 	msg "Installing optdepends packages: ${OPTDEPENDS[*]}"
 	install_packages "${OPTDEPENDS[@]}"
