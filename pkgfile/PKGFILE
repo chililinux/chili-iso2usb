@@ -10,7 +10,7 @@ license=('MIT')
 url="https://github.com/chililinux/$pkgname"
 source=("git+${url}.git")
 md5sums=('SKIP')
-depends=(zenity)
+depends=(zenity yad)
 optdepends=(
 	yad
 	dialog
