@@ -3,9 +3,9 @@
 #  chili-iso2usb - Utility to write iso file to pendrive/device
 #  Created: 2019/06/14
 #  Altered: 2024/10/26
-#  Updated: sáb 29 mar 2025 00:03:07 -04
+#  Updated: sex 05 jun 2026 02:00:00 -04
 #
-#  Copyright (c) 2024-2025, Vilmar Catafesta <vcatafesta@gmail.com>
+#  Copyright (c) 2024-2026, Vilmar Catafesta <vcatafesta@gmail.com>
 #  All rights reserved.
 #
 #  Redistribution and use in source and binary forms, with or without
@@ -28,42 +28,36 @@
 #  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 #  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ##############################################################################
-_VERSION_="1.6.20250329"
-readonly DEPENDENCIES=(yad dialog dd sed grep cat awk fdisk blkid)
+export LANGUAGE="${LANGUAGE:-pt_BR}"
+export TEXTDOMAINDIR="${TEXTDOMAINDIR:-/usr/share/locale}"
+export TEXTDOMAIN="chili-iso2usb"
+
+_VERSION_="1.7.20260605-16"
+readonly DEPENDENCIES=(yad zenity dd grep awk lsblk sync gettext fdisk)
 
 check_deps() {
 	local errorFound=false
-	declare -a missing
+	local missing=()
 
 	for f in "${DEPENDENCIES[@]}"; do
-		if [[ -z $(command -v "$f") ]]; then
+		if ! command -v "$f" &>/dev/null; then
 			missing+=("$f")
 			errorFound=true
-			printf "%s\n" "ERRO: não encontrei o comando '$f'"
+			printf "$(gettext "ERRO: não encontrei o comando '%s'")\n" "$f" >&2
 		fi
 	done
 	if $errorFound; then
-		echo "---IMPOSSÍVEL CONTINUAR---"
-		echo "Esse script necessita dos comandos listados acima" >&2
-		echo "Instale-os e/ou verifique se estão no seu \$PATH" >&2
+		echo "$(gettext "---IMPOSSÍVEL CONTINUAR---")" >&2
+		echo "$(gettext "Esse script necessita dos comandos listados acima")" >&2
+		echo "$(gettext "Instale-os e/ou verifique se estão no seu \$PATH")" >&2
 		exit 1
 	fi
 }
 
 yad_message() {
 	local msg="$1"
-
-	txt="<b><big>$msg</big></b>"
-	yad "${comargs[@]}" --image=gtk-dialog-info --text="$txt" --button="Done":1
-}
-
-info() {
-	dialog \
-		--beep \
-		--title "$app" \
-		--backtitle "$app" \
-		--msgbox "$*" \
-		10 60
+	local txt="<b><big>$msg</big></b>"
+	yad "${comargs[@]}" --image=gtk-dialog-info --text="$txt" --button="$(gettext "Fechar")":1
 }
 
 sh_initvars() {
@@ -75,11 +69,23 @@ sh_initvars() {
 	: "${ARRAY_DSK_TRAN=()}"
 	: "${ARRAY_DSK_LABEL=()}"
 	: sep='\xe2\x94\x82'
+
+	# Detecta o HOME do usuário real para evitar o do root
+	local real_user="${SUDO_USER:-$USER}"
+	local real_home
+	real_home=$(eval echo "~$real_user")
+
+	if [[ -d "$real_home/Downloads" ]]; then
+		ISO_START_DIR="$real_home/Downloads/"
+	else
+		ISO_START_DIR="$real_home/"
+	fi
+
 	app="chili-iso2usb $_VERSION_"
 	comargs=(
 		--title="$app"
 		--center
-		--width=400
+		--width=450
 		--height=250
 		--text-align=center
 		--buttons-layout=center
@@ -88,57 +94,6 @@ sh_initvars() {
 	)
 
 	COMARGS=$(printf "%q " "${comargs[@]}")
-	LINGUA=$(echo "$LANG" | cut -c1-2)
-	case $LINGUA in
-	pt)
-		MSG=(
-			[0]="Selecione a ISO para copiar"
-			[1]="Sair $app"
-			[2]="N°"
-			[3]="Nome"
-			[4]="Tamanho em GB"
-			[5]="Selecione o seu USB drive"
-			[6]="Atenção tamanho muito grande"
-			[7]="ATENÇÃO !!!"
-			[8]="Poderia ser um disco rígido externo. \nContinuar ?"
-			[9]="Problema na ferramenta. Contactar o autor."
-			[10]="Progresso:"
-			[11]="Copiar de"
-			[12]="Você já pode remover o seu USB drive."
-			[13]="Fim de copiar"
-		)
-		;;
-	*)
-		MSG=(
-			[0]="Select the ISO to be copied"
-			[1]="Exit $app"
-			[2]="Nr"
-			[3]="Name"
-			[4]="Size in GB"
-			[5]="Select your USB drive"
-			[6]="Beware if size is too large"
-			[7]="WARNING !!!"
-			[8]="It could be an external hard drive.\nContinue ?"
-			[9]="Problem in the tool, contact the author."
-			[10]="Progress done:"
-			[11]="Copy of"
-			[12]="You can remove the key if you want."
-			[13]="End of copy"
-		)
-		;;
-	esac
-}
-
-sh_chooseiso() {
-	local result
-
-	isofile=$(zenity \
-		--file-selection \
-		--title="${MSG[0]}" \
-		--filename="$HOME"/ \
-		--file-filter=*.iso)
-	result="$?"
-	[[ "$result" -eq 0 ]] || exit 0
 }
 
 sh_disk_info() {
@@ -170,32 +125,25 @@ sh_choosedisk() {
 }
 
 sh_write() {
-	local i=0
-	local l=0
-	local xtemp
-	local sectorsize
+	local total_bytes
+	total_bytes=$(stat -c %s "$isofile")
 
-	xtemp="$(mktemp)"
-	sectorsize=$(fdisk -s "$isofile")
-	(while [[ $l -lt "$sectorsize" ]]; do
-		echo "dd if=$isofile of=$sd bs=8192000 count=1 skip=$i seek=$i oflag=direct" >"$xtemp"
-		if ! dd if="$isofile" of="${sd}" bs=8192000 count=1 skip="$i" seek="$i" oflag=direct >>"$xtemp" 2>&1; then
-			break
-		fi
-		rm "$xtemp"
-		i=$(("$i" + 1))
-		l=$(("$l" + 8000))
-		q=$(("$l" * 100 / "$sectorsize"))
-		echo -e "$q \n#""${MSG[10]}"" : $q %"
-	done) | zenity --progress --width 650 --auto-close --title "${MSG[11]}" "$isofile"
+	local msg_progress
+	msg_progress=$(gettext "Progresso:")
 
-	if [[ -f "$xtemp" ]]; then
-		zenity --error --text="$(cat "$xtemp")"
-		rm "$xtemp"
+	dd if="$isofile" of="$sd" bs=8M status=progress oflag=direct 2>&1 |
+		awk -v total="$total_bytes" -v msg="$msg_progress" '
+  status==0 && /[0-9]+ bytes/ {
+    printf "%d\n# %s %d%%\n", ($1*100)/total, msg, ($1*100)/total
+    fflush()
+  }' | zenity --progress --width=500 --auto-close --title="$(gettext "Copiar de") $isofile" --text="$(gettext "Gravando a imagem ISO no dispositivo...")"
+
+	if [[ "${PIPESTATUS[0]}" -ne 0 ]]; then
+		zenity --error --text="$(gettext "Problema na ferramenta. Contactar o autor.")"
 		exit 1
 	else
 		sync
-		zenity --info --text="${MSG[12]}" --title="${MSG[13]}"
+		zenity --info --text="$(gettext "Você já pode remover o seu USB drive.")" --title="$(gettext "Fim de copiar")"
 		exit 0
 	fi
 }
@@ -205,14 +153,15 @@ sh_main() {
 	while true; do
 		cmdmain=(
 			"${comargs[@]}"
-			--text="<b><big><big>Drive Properties</big></big></b>\n"
+			--text="<b><big><big>$(gettext "Propriedades do Drive")</big></big></b>\n"
 			--button="Refresh:3"
 			--button="yad-close:1"
 			--button="Go!:2"
 			--form
 			--columns=1
-			--field="Device:":CB "${USBDSK[*]}"
-			--field="ISO File::FL"
+			--field="$(gettext "Dispositivo:")":CB "${USBDSK[*]}"
+			--field="$(gettext "Arquivo ISO:")":FL "$ISO_START_DIR"
+			--file-filter="$(gettext "Imagens ISO") | *.iso"
 		)
 		result=$(yad "${cmdmain[@]}")
 		nchoice=$?
@@ -222,19 +171,20 @@ sh_main() {
 			sh_choosedisk
 			continue
 			;;
-		1) exit 0 ;;
+		1 | 252) exit 0 ;;
 		2)
 			sd=$(echo "${result}" | cut -d"|" -f1 | awk '{print $1}')
 			isofile=$(echo "${result}" | cut -d"|" -f2)
+
 			export sd
 			export isofile
 
-			if [[ $isofile == "" ]]; then
-				yad_message "${MSG[0]}"
+			if [[ -z "$isofile" ]]; then
+				yad_message slide_$(gettext "Selecione a ISO para copiar")
 				continue
 			fi
-			if [[ $sd == "" ]]; then
-				yad_message "${MSG[5]}"
+			if [[ -z "$sd" ]]; then
+				yad_message "$(gettext "Selecione o seu USB drive")"
 				continue
 			fi
 			sh_write
