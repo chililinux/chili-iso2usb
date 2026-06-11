@@ -2,10 +2,9 @@
 #
 #  chili-iso2usb - Utility to write iso file to pendrive/device
 #  Created: 2019/06/14
-#  Altered: 2024/10/26
-#  Updated: sex 05 jun 2026 02:00:00 -04
+#  Updated: qua 10 jun 2026 22:29:22 -04
 #
-#  Copyright (c) 2024-2026, Vilmar Catafesta <vcatafesta@gmail.com>
+#  Copyright (c) 2019-2026, Vilmar Catafesta <vcatafesta@gmail.com>
 #  All rights reserved.
 #
 #  Redistribution and use in source and binary forms, with or without
@@ -32,8 +31,10 @@ export LANGUAGE="${LANGUAGE:-pt_BR}"
 export TEXTDOMAINDIR="${TEXTDOMAINDIR:-/usr/share/locale}"
 export TEXTDOMAIN="chili-iso2usb"
 
-_VERSION_="1.7.20260605-16"
-readonly DEPENDENCIES=(yad zenity dd grep awk lsblk sync gettext fdisk)
+declare APP="${0##*/}"
+declare _VERSION_="1.06.10-20260610"
+declare APPDESC="$APP - Utilitário para gravar ISO"
+declare DEPENDENCIES=(yad zenity dd grep awk lsblk sync gettext fdisk)
 
 check_deps() {
 	local errorFound=false
@@ -81,9 +82,8 @@ sh_initvars() {
 		ISO_START_DIR="$real_home/"
 	fi
 
-	app="chili-iso2usb $_VERSION_"
 	comargs=(
-		--title="$app"
+		--title="${APP} - v${_VERSION_}"
 		--center
 		--width=450
 		--height=250
@@ -125,25 +125,32 @@ sh_choosedisk() {
 }
 
 sh_write() {
-	local total_bytes
-	total_bytes=$(stat -c %s "$isofile")
+	local i=0
+	local l=0
+	local xtemp
+	local sectorsize
 
-	local msg_progress
-	msg_progress=$(gettext "Progresso:")
+	xtemp="$(mktemp)"
+	sectorsize=$(fdisk -s "$isofile")
+	(while [[ $l -lt "$sectorsize" ]]; do
+		echo "dd if=$isofile of=$sd bs=8192000 count=1 skip=$i seek=$i oflag=direct" >"$xtemp"
+		if ! dd if="$isofile" of="${sd}" bs=8192000 count=1 skip="$i" seek="$i" oflag=direct >>"$xtemp" 2>&1; then
+			break
+		fi
+		rm "$xtemp"
+		i=$(("$i" + 1))
+		l=$(("$l" + 8000))
+		q=$(("$l" * 100 / "$sectorsize"))
+		echo -e "$q \n#""${MSG[10]}"" : $q %"
+	done) | zenity --progress --width 650 --auto-close --title "${MSG[11]}" "$isofile"
 
-	dd if="$isofile" of="$sd" bs=8M status=progress oflag=direct 2>&1 |
-		awk -v total="$total_bytes" -v msg="$msg_progress" '
-  status==0 && /[0-9]+ bytes/ {
-    printf "%d\n# %s %d%%\n", ($1*100)/total, msg, ($1*100)/total
-    fflush()
-  }' | zenity --progress --width=500 --auto-close --title="$(gettext "Copiar de") $isofile" --text="$(gettext "Gravando a imagem ISO no dispositivo...")"
-
-	if [[ "${PIPESTATUS[0]}" -ne 0 ]]; then
-		zenity --error --text="$(gettext "Problema na ferramenta. Contactar o autor.")"
+	if [[ -f "$xtemp" ]]; then
+		zenity --error --text="$(cat "$xtemp")"
+		rm "$xtemp"
 		exit 1
 	else
 		sync
-		zenity --info --text="$(gettext "Você já pode remover o seu USB drive.")" --title="$(gettext "Fim de copiar")"
+		zenity --info --text="${MSG[12]}" --title="${MSG[13]}"
 		exit 0
 	fi
 }
@@ -155,8 +162,8 @@ sh_main() {
 			"${comargs[@]}"
 			--text="<b><big><big>$(gettext "Propriedades do Drive")</big></big></b>\n"
 			--button="Refresh:3"
-			--button="yad-close:1"
-			--button="Go!:2"
+			--button="$(gettext "Fechar"):1"
+			--button="$(gettext "Gravar"):2"
 			--form
 			--columns=1
 			--field="$(gettext "Dispositivo:")":CB "${USBDSK[*]}"

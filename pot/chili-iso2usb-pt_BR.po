@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chili-tradutor-go 2.1.20-20260201\n"
-"POT-Creation-Date: 2026-06-05 00:59-0400\n"
-"PO-Revision-Date: 2026-06-05 00:59-0400\n"
+"POT-Creation-Date: 2026-06-10 22:36-0400\n"
+"PO-Revision-Date: 2026-06-10 22:36-0400\n"
 "Last-Translator: Vilmar Catafesta <vcatafesta@gmail.com>\n"
 "Language-Team: Portuguese <https://github.com/chililinux/chili-tradutor-go>\n"
 "MIME-Version: 1.0\n"
@@ -14,72 +14,52 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: usr/bin/chili-iso2usb:46
+#: usr/bin/chili-iso2usb:47
 #, sh-printf-format
 msgid "ERRO: não encontrei o comando '%s'"
 msgstr "ERRO: não encontrei o comando '%s'"
 
-#: usr/bin/chili-iso2usb:50
+#: usr/bin/chili-iso2usb:51
 msgid "---IMPOSSÍVEL CONTINUAR---"
 msgstr "---IMPOSSÍVEL CONTINUAR---"
 
-#: usr/bin/chili-iso2usb:51
+#: usr/bin/chili-iso2usb:52
 msgid "Esse script necessita dos comandos listados acima"
 msgstr "Esse script necessita dos comandos listados acima"
 
-#: usr/bin/chili-iso2usb:52
+#: usr/bin/chili-iso2usb:53
 #, sh-format
 msgid "Instale-os e/ou verifique se estão no seu $PATH"
 msgstr "Instale-os e/ou verifique se estão no seu $PATH"
 
-#: usr/bin/chili-iso2usb:60
+#: usr/bin/chili-iso2usb:61 usr/bin/chili-iso2usb:165
 msgid "Fechar"
 msgstr "Fechar"
 
-#: usr/bin/chili-iso2usb:132
-msgid "Progresso:"
-msgstr "Progresso:"
-
-#: usr/bin/chili-iso2usb:139
-msgid "Copiar de"
-msgstr "Copiar de"
-
-#: usr/bin/chili-iso2usb:139
-msgid "Gravando a imagem ISO no dispositivo..."
-msgstr "Gravando a imagem ISO no dispositivo..."
-
-#: usr/bin/chili-iso2usb:142
-msgid "Problema na ferramenta. Contactar o autor."
-msgstr "Problema na ferramenta. Contatar o autor."
-
-#: usr/bin/chili-iso2usb:146
-msgid "Você já pode remover o seu USB drive."
-msgstr "Você já pode remover o seu USB drive."
-
-#: usr/bin/chili-iso2usb:146
-msgid "Fim de copiar"
-msgstr "Fim de copiar"
-
-#: usr/bin/chili-iso2usb:156
+#: usr/bin/chili-iso2usb:163
 msgid "Propriedades do Drive"
 msgstr "Propriedades do Drive"
 
-#: usr/bin/chili-iso2usb:162
+#: usr/bin/chili-iso2usb:166
+msgid "Gravar"
+msgstr "Gravar"
+
+#: usr/bin/chili-iso2usb:169
 msgid "Dispositivo:"
 msgstr "Dispositivo:"
 
-#: usr/bin/chili-iso2usb:163
+#: usr/bin/chili-iso2usb:170
 msgid "Arquivo ISO:"
 msgstr "Arquivo ISO:"
 
-#: usr/bin/chili-iso2usb:164
+#: usr/bin/chili-iso2usb:171
 msgid "Imagens ISO"
 msgstr "Imagens ISO"
 
-#: usr/bin/chili-iso2usb:183
+#: usr/bin/chili-iso2usb:190
 msgid "Selecione a ISO para copiar"
 msgstr "Selecione a ISO para copiar"
 
-#: usr/bin/chili-iso2usb:187
+#: usr/bin/chili-iso2usb:194
 msgid "Selecione o seu USB drive"
 msgstr "Selecione o seu USB drive"
