@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name=VoidBR iso2usb
-GenericName=VoidBR Iso2usb Util
+GenericName=VoidBR Iso2usb
 Comment=Utilitário para gravar arquivo iso em pendrive/dispositivo
 Exec=voidbr-iso2usb
 Terminal=false

@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name=Chili iso2usb
-GenericName=Chili Iso2usb Util
+GenericName=Chili Iso2usb
 Comment=Utilitário para gravar arquivo iso em pendrive/dispositivo
 Exec=chili-iso2usb
 Terminal=false
