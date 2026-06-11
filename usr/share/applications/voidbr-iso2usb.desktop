@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=VoidBR iso2usb
+GenericName=VoidBR Iso2usb Util
+Comment=Utilitário para gravar arquivo iso em pendrive/dispositivo
+Exec=voidbr-iso2usb
+Terminal=false
+MimeType=text/plain;
+Icon=pendrive.png
+Categories=Settings;DesktopSettigns;Utility;Accessories;X-VoidBR-Apps;
+StartupNotify=true
