@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chili-tradutor-go 2.1.20-20260201\n"
-"POT-Creation-Date: 2026-06-05 00:59-0400\n"
-"PO-Revision-Date: 2026-06-05 00:59-0400\n"
+"POT-Creation-Date: 2026-06-10 22:36-0400\n"
+"PO-Revision-Date: 2026-06-10 22:36-0400\n"
 "Last-Translator: Vilmar Catafesta <vcatafesta@gmail.com>\n"
 "Language-Team: Portuguese <https://github.com/chililinux/chili-tradutor-go>\n"
 "MIME-Version: 1.0\n"
@@ -14,72 +14,52 @@ msgstr ""
 "Language: zh_CN\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: usr/bin/chili-iso2usb:46
+#: usr/bin/chili-iso2usb:47
 #, sh-printf-format
 msgid "ERRO: não encontrei o comando '%s'"
 msgstr "错误：我没有找到命令“%s”"
 
-#: usr/bin/chili-iso2usb:50
+#: usr/bin/chili-iso2usb:51
 msgid "---IMPOSSÍVEL CONTINUAR---"
 msgstr "---无法继续---"
 
-#: usr/bin/chili-iso2usb:51
+#: usr/bin/chili-iso2usb:52
 msgid "Esse script necessita dos comandos listados acima"
 msgstr "该脚本需要上面列出的命令"
 
-#: usr/bin/chili-iso2usb:52
+#: usr/bin/chili-iso2usb:53
 #, sh-format
 msgid "Instale-os e/ou verifique se estão no seu $PATH"
 msgstr "安装它们和/或检查它们是否在您的 $PATH 上"
 
-#: usr/bin/chili-iso2usb:60
+#: usr/bin/chili-iso2usb:61 usr/bin/chili-iso2usb:165
 msgid "Fechar"
 msgstr "关闭"
 
-#: usr/bin/chili-iso2usb:132
-msgid "Progresso:"
-msgstr "进步："
-
-#: usr/bin/chili-iso2usb:139
-msgid "Copiar de"
-msgstr "复制自"
-
-#: usr/bin/chili-iso2usb:139
-msgid "Gravando a imagem ISO no dispositivo..."
-msgstr "将 ISO 映像刻录到设备..."
-
-#: usr/bin/chili-iso2usb:142
-msgid "Problema na ferramenta. Contactar o autor."
-msgstr "工具问题。联系作者。"
-
-#: usr/bin/chili-iso2usb:146
-msgid "Você já pode remover o seu USB drive."
-msgstr "您现在可以移除 USB 驱动器。"
-
-#: usr/bin/chili-iso2usb:146
-msgid "Fim de copiar"
-msgstr "复制结束"
-
-#: usr/bin/chili-iso2usb:156
+#: usr/bin/chili-iso2usb:163
 msgid "Propriedades do Drive"
 msgstr "驱动器属性"
 
-#: usr/bin/chili-iso2usb:162
+#: usr/bin/chili-iso2usb:166
+msgid "Gravar"
+msgstr "记录"
+
+#: usr/bin/chili-iso2usb:169
 msgid "Dispositivo:"
 msgstr "设备："
 
-#: usr/bin/chili-iso2usb:163
+#: usr/bin/chili-iso2usb:170
 msgid "Arquivo ISO:"
 msgstr "ISO 文件："
 
-#: usr/bin/chili-iso2usb:164
+#: usr/bin/chili-iso2usb:171
 msgid "Imagens ISO"
 msgstr "ISO 映像"
 
-#: usr/bin/chili-iso2usb:183
+#: usr/bin/chili-iso2usb:190
 msgid "Selecione a ISO para copiar"
 msgstr "选择要复制的 ISO"
 
-#: usr/bin/chili-iso2usb:187
+#: usr/bin/chili-iso2usb:194
 msgid "Selecione o seu USB drive"
 msgstr "选择您的 USB 驱动器"
