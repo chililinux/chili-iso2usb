@@ -2,7 +2,7 @@
 #
 #  chili-iso2usb - Utility to write iso file to pendrive/device
 #  Created: 2019/06/14
-#  Updated: qua 10 jun 2026 22:29:22 -04
+#  Updated: sex 12 jun 2026 11:58:42 -04
 #
 #  Copyright (c) 2019-2026, Vilmar Catafesta <vcatafesta@gmail.com>
 #  All rights reserved.
@@ -32,7 +32,7 @@ export TEXTDOMAINDIR="${TEXTDOMAINDIR:-/usr/share/locale}"
 export TEXTDOMAIN="chili-iso2usb"
 
 declare APP="${0##*/}"
-declare _VERSION_="1.06.10-20260610"
+declare _VERSION_="1.06.12-20260612"
 declare APPDESC="$APP - Utilitário para gravar ISO"
 declare DEPENDENCIES=(yad zenity dd grep awk lsblk sync gettext fdisk)
 
@@ -94,6 +94,46 @@ sh_initvars() {
 	)
 
 	COMARGS=$(printf "%q " "${comargs[@]}")
+	LINGUA=$(echo "$LANG" | cut -c1-2)
+
+	case $LINGUA in
+	pt)
+		MSG=(
+			[0]="Selecione a ISO para copiar"
+			[1]="Sair $app"
+			[2]="N°"
+			[3]="Nome"
+			[4]="Tamanho em GB"
+			[5]="Selecione o seu USB drive"
+			[6]="Atenção tamanho muito grande"
+			[7]="ATENÇÃO !!!"
+			[8]="Poderia ser um disco rígido externo. \nContinuar ?"
+			[9]="Problema na ferramenta. Contactar o autor."
+			[10]="Progresso:"
+			[11]="Copiar de"
+			[12]="Você já pode remover o seu USB drive."
+			[13]="Fim de copiar"
+		)
+		;;
+	*)
+		MSG=(
+			[0]="Select the ISO to be copied"
+			[1]="Exit $app"
+			[2]="Nr"
+			[3]="Name"
+			[4]="Size in GB"
+			[5]="Select your USB drive"
+			[6]="Beware if size is too large"
+			[7]="WARNING !!!"
+			[8]="It could be an external hard drive.\nContinue ?"
+			[9]="Problem in the tool, contact the author."
+			[10]="Progress done:"
+			[11]="Copy of"
+			[12]="You can remove the key if you want."
+			[13]="End of copy"
+		)
+		;;
+	esac
 }
 
 sh_disk_info() {
