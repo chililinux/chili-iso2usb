@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chili-tradutor-go 2.1.20-20260201\n"
-"POT-Creation-Date: 2026-06-10 22:36-0400\n"
-"PO-Revision-Date: 2026-06-10 22:36-0400\n"
+"POT-Creation-Date: 2026-06-12 12:45-0400\n"
+"PO-Revision-Date: 2026-06-12 12:45-0400\n"
 "Last-Translator: Vilmar Catafesta <vcatafesta@gmail.com>\n"
 "Language-Team: Portuguese <https://github.com/chililinux/chili-tradutor-go>\n"
 "MIME-Version: 1.0\n"
@@ -32,34 +32,82 @@ msgstr "Ce script nécessite les commandes répertoriées ci-dessus"
 msgid "Instale-os e/ou verifique se estão no seu $PATH"
 msgstr "Installez-les et/ou vérifiez s'ils sont sur votre $PATH"
 
-#: usr/bin/chili-iso2usb:61 usr/bin/chili-iso2usb:165
+#: usr/bin/chili-iso2usb:61
 msgid "Fechar"
 msgstr "Pour fermer"
 
-#: usr/bin/chili-iso2usb:163
-msgid "Propriedades do Drive"
-msgstr "Propriétés du lecteur"
-
-#: usr/bin/chili-iso2usb:166
-msgid "Gravar"
-msgstr "Pour enregistrer"
-
-#: usr/bin/chili-iso2usb:169
-msgid "Dispositivo:"
-msgstr "Appareil:"
-
-#: usr/bin/chili-iso2usb:170
-msgid "Arquivo ISO:"
-msgstr "Fichier ISO :"
-
-#: usr/bin/chili-iso2usb:171
-msgid "Imagens ISO"
-msgstr "Images ISO"
-
-#: usr/bin/chili-iso2usb:190
+#: usr/bin/chili-iso2usb:98 usr/bin/chili-iso2usb:226
 msgid "Selecione a ISO para copiar"
 msgstr "Sélectionnez l'ISO à copier"
 
-#: usr/bin/chili-iso2usb:194
+#: usr/bin/chili-iso2usb:99
+msgid "Sair"
+msgstr "Pour sortir"
+
+#: usr/bin/chili-iso2usb:101
+msgid "Nome"
+msgstr "Nom"
+
+#: usr/bin/chili-iso2usb:102
+msgid "Tamanho em GB"
+msgstr "Taille en Go"
+
+#: usr/bin/chili-iso2usb:103 usr/bin/chili-iso2usb:230
 msgid "Selecione o seu USB drive"
 msgstr "Sélectionnez votre clé USB"
+
+#: usr/bin/chili-iso2usb:104
+msgid "Atenção tamanho muito grande"
+msgstr "Attention taille très grand"
+
+#: usr/bin/chili-iso2usb:105
+msgid "ATENÇÃO !!!"
+msgstr "ATTENTION !!!"
+
+#: usr/bin/chili-iso2usb:106
+msgid "Poderia ser um disco rígido externo. \\nContinuar ?"
+msgstr "Il peut s'agir d'un disque dur externe. \\nContinuer ?"
+
+#: usr/bin/chili-iso2usb:107
+msgid "Problema na ferramenta. Contactar o autor."
+msgstr "Problème d'outil. Contactez l'auteur."
+
+#: usr/bin/chili-iso2usb:108
+msgid "Progresso:"
+msgstr "Progrès:"
+
+#: usr/bin/chili-iso2usb:109
+msgid "Copiar de"
+msgstr "Copier depuis"
+
+#: usr/bin/chili-iso2usb:110
+msgid "Você já pode remover o seu USB drive."
+msgstr "Vous pouvez maintenant retirer votre clé USB."
+
+#: usr/bin/chili-iso2usb:111
+msgid "Fim da copia"
+msgstr "Fin de copie"
+
+#: usr/bin/chili-iso2usb:112
+msgid "Operação cancelada pelo usuário"
+msgstr "Opération annulée par l'utilisateur"
+
+#: usr/bin/chili-iso2usb:113
+msgid "Cancelado"
+msgstr "Annulé"
+
+#: usr/bin/chili-iso2usb:199
+msgid "Propriedades do Dispositivo"
+msgstr "Propriétés du périphérique"
+
+#: usr/bin/chili-iso2usb:205
+msgid "Dispositivo:"
+msgstr "Appareil:"
+
+#: usr/bin/chili-iso2usb:206
+msgid "Arquivo ISO:"
+msgstr "Fichier ISO :"
+
+#: usr/bin/chili-iso2usb:207
+msgid "Imagens ISO"
+msgstr "Images ISO"
