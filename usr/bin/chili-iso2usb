@@ -2,7 +2,7 @@
 #
 #  chili-iso2usb - Utility to write iso file to pendrive/device
 #  Created: 2019/06/14
-#  Updated: qua 10 jun 2026 22:29:22 -04
+#  Updated: sex 12 jun 2026 11:58:42 -04
 #
 #  Copyright (c) 2019-2026, Vilmar Catafesta <vcatafesta@gmail.com>
 #  All rights reserved.
@@ -32,7 +32,7 @@ export TEXTDOMAINDIR="${TEXTDOMAINDIR:-/usr/share/locale}"
 export TEXTDOMAIN="chili-iso2usb"
 
 declare APP="${0##*/}"
-declare _VERSION_="1.06.10-20260610"
+declare _VERSION_="1.06.12-20260612"
 declare APPDESC="$APP - Utilitário para gravar ISO"
 declare DEPENDENCIES=(yad zenity dd grep awk lsblk sync gettext fdisk)
 
@@ -94,6 +94,24 @@ sh_initvars() {
 	)
 
 	COMARGS=$(printf "%q " "${comargs[@]}")
+	MSG=(
+		[0]="$(gettext 'Selecione a ISO para copiar')"
+		[1]="$(gettext 'Sair') $app"
+		[2]="N°"
+		[3]="$(gettext 'Nome')"
+		[4]="$(gettext 'Tamanho em GB')"
+		[5]="$(gettext 'Selecione o seu USB drive')"
+		[6]="$(gettext 'Atenção tamanho muito grande')"
+		[7]="$(gettext 'ATENÇÃO !!!')"
+		[8]="$(gettext 'Poderia ser um disco rígido externo. \nContinuar ?')"
+		[9]="$(gettext 'Problema na ferramenta. Contactar o autor.')"
+		[10]="$(gettext 'Progresso:')"
+		[11]="$(gettext 'Copiar de')"
+		[12]="$(gettext 'Você já pode remover o seu USB drive.')"
+		[13]="$(gettext 'Fim da copia')"
+		[14]="$(gettext 'Operação cancelada pelo usuário')"
+		[15]="$(gettext 'Cancelado')"
+	)
 }
 
 sh_disk_info() {
@@ -142,15 +160,33 @@ sh_write() {
 		l=$(("$l" + 8000))
 		q=$(("$l" * 100 / "$sectorsize"))
 		echo -e "$q \n#""${MSG[10]}"" : $q %"
-	done) | zenity --progress --width 650 --auto-close --title "${MSG[11]}" "$isofile"
+	done) | zenity \
+		--progress \
+		--width 650 \
+		--auto-close \
+		--title "${MSG[11]}: ${isofile}"
+	result=$?
+	if [ "$result" -eq 1 ]; then
+		zenity \
+			--warning \
+			--text="${MSG[14]}" \
+			--title="${MSG[15]}"
+		rm -f "$xtemp"
+		sh_main
+	fi
 
 	if [[ -f "$xtemp" ]]; then
-		zenity --error --text="$(cat "$xtemp")"
+		zenity \
+			--error \
+			--text="$(cat "$xtemp")"
 		rm "$xtemp"
-		exit 1
+		sh_main
 	else
 		sync
-		zenity --info --text="${MSG[12]}" --title="${MSG[13]}"
+		zenity \
+			--info \
+			--text="${MSG[12]}" \
+			--title="${MSG[13]}"
 		exit 0
 	fi
 }
@@ -160,10 +196,10 @@ sh_main() {
 	while true; do
 		cmdmain=(
 			"${comargs[@]}"
-			--text="<b><big><big>$(gettext "Propriedades do Drive")</big></big></b>\n"
-			--button="Refresh:3"
-			--button="$(gettext "Fechar"):1"
-			--button="$(gettext "Gravar"):2"
+			--text="<b><big><big>$(gettext "Propriedades do Dispositivo")</big></big></b>\n"
+			--button="yad-refresh:3"
+			--button="yad-close:1"
+			--button="yad-save!Gravar:2"
 			--form
 			--columns=1
 			--field="$(gettext "Dispositivo:")":CB "${USBDSK[*]}"

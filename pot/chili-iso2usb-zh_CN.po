@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: chili-tradutor-go 2.1.20-20260201\n"
-"POT-Creation-Date: 2026-06-10 22:36-0400\n"
-"PO-Revision-Date: 2026-06-10 22:36-0400\n"
+"POT-Creation-Date: 2026-06-12 12:45-0400\n"
+"PO-Revision-Date: 2026-06-12 12:45-0400\n"
 "Last-Translator: Vilmar Catafesta <vcatafesta@gmail.com>\n"
 "Language-Team: Portuguese <https://github.com/chililinux/chili-tradutor-go>\n"
 "MIME-Version: 1.0\n"
@@ -32,34 +32,82 @@ msgstr "该脚本需要上面列出的命令"
 msgid "Instale-os e/ou verifique se estão no seu $PATH"
 msgstr "安装它们和/或检查它们是否在您的 $PATH 上"
 
-#: usr/bin/chili-iso2usb:61 usr/bin/chili-iso2usb:165
+#: usr/bin/chili-iso2usb:61
 msgid "Fechar"
 msgstr "关闭"
 
-#: usr/bin/chili-iso2usb:163
-msgid "Propriedades do Drive"
-msgstr "驱动器属性"
-
-#: usr/bin/chili-iso2usb:166
-msgid "Gravar"
-msgstr "记录"
-
-#: usr/bin/chili-iso2usb:169
-msgid "Dispositivo:"
-msgstr "设备："
-
-#: usr/bin/chili-iso2usb:170
-msgid "Arquivo ISO:"
-msgstr "ISO 文件："
-
-#: usr/bin/chili-iso2usb:171
-msgid "Imagens ISO"
-msgstr "ISO 映像"
-
-#: usr/bin/chili-iso2usb:190
+#: usr/bin/chili-iso2usb:98 usr/bin/chili-iso2usb:226
 msgid "Selecione a ISO para copiar"
 msgstr "选择要复制的 ISO"
 
-#: usr/bin/chili-iso2usb:194
+#: usr/bin/chili-iso2usb:99
+msgid "Sair"
+msgstr "退出"
+
+#: usr/bin/chili-iso2usb:101
+msgid "Nome"
+msgstr "姓名"
+
+#: usr/bin/chili-iso2usb:102
+msgid "Tamanho em GB"
+msgstr "大小（GB）"
+
+#: usr/bin/chili-iso2usb:103 usr/bin/chili-iso2usb:230
 msgid "Selecione o seu USB drive"
 msgstr "选择您的 USB 驱动器"
+
+#: usr/bin/chili-iso2usb:104
+msgid "Atenção tamanho muito grande"
+msgstr "注意尺寸非常大"
+
+#: usr/bin/chili-iso2usb:105
+msgid "ATENÇÃO !!!"
+msgstr "注意力 ！！！"
+
+#: usr/bin/chili-iso2usb:106
+msgid "Poderia ser um disco rígido externo. \\nContinuar ?"
+msgstr "它可能是外部硬盘驱动器。 \\n继续吗？"
+
+#: usr/bin/chili-iso2usb:107
+msgid "Problema na ferramenta. Contactar o autor."
+msgstr "工具问题。联系作者。"
+
+#: usr/bin/chili-iso2usb:108
+msgid "Progresso:"
+msgstr "进步："
+
+#: usr/bin/chili-iso2usb:109
+msgid "Copiar de"
+msgstr "复制自"
+
+#: usr/bin/chili-iso2usb:110
+msgid "Você já pode remover o seu USB drive."
+msgstr "您现在可以移除 USB 驱动器。"
+
+#: usr/bin/chili-iso2usb:111
+msgid "Fim da copia"
+msgstr "副本结束"
+
+#: usr/bin/chili-iso2usb:112
+msgid "Operação cancelada pelo usuário"
+msgstr "用户取消操作"
+
+#: usr/bin/chili-iso2usb:113
+msgid "Cancelado"
+msgstr "取消"
+
+#: usr/bin/chili-iso2usb:199
+msgid "Propriedades do Dispositivo"
+msgstr "设备属性"
+
+#: usr/bin/chili-iso2usb:205
+msgid "Dispositivo:"
+msgstr "设备："
+
+#: usr/bin/chili-iso2usb:206
+msgid "Arquivo ISO:"
+msgstr "ISO 文件："
+
+#: usr/bin/chili-iso2usb:207
+msgid "Imagens ISO"
+msgstr "ISO 映像"
